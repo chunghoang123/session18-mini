@@ -1,0 +1,667 @@
+{
+	"info": {
+		"_postman_id": "rikkeibank-microservices-api-v1",
+		"name": "RikkeiBank Microservices API Collection",
+		"description": "Complete Postman collection for RikkeiBank Microservices System via API Gateway (:8080). Includes Auth, Catalog, Account, Saga Transfer, Saga Rollback, Kafka Notifications, and Circuit Breaker.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "accessToken",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "refreshToken",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "adminToken",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "tellerToken",
+			"value": "",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "01. Authentication & Security (identity-service)",
+			"item": [
+				{
+					"name": "1.1 Login as Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"if (jsonData.data && jsonData.data.accessToken) {",
+									"    pm.collectionVariables.set('adminToken', jsonData.data.accessToken);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"admin123\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/auth/login",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "auth", "login"]
+						}
+					}
+				},
+				{
+					"name": "1.2 Login as Teller",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"if (jsonData.data && jsonData.data.accessToken) {",
+									"    pm.collectionVariables.set('tellerToken', jsonData.data.accessToken);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"teller1\",\n    \"password\": \"teller123\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/auth/login",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "auth", "login"]
+						}
+					}
+				},
+				{
+					"name": "1.3 Login as Customer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"if (jsonData.data && jsonData.data.accessToken) {",
+									"    pm.collectionVariables.set('accessToken', jsonData.data.accessToken);",
+									"    pm.collectionVariables.set('refreshToken', jsonData.data.refreshToken);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"customer1\",\n    \"password\": \"customer123\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/auth/login",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "auth", "login"]
+						}
+					}
+				},
+				{
+					"name": "1.4 Register New Customer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"newuser2024\",\n    \"password\": \"password123\",\n    \"email\": \"newuser@rikkeibank.com\",\n    \"fullName\": \"Nguyen New Customer\",\n    \"role\": \"ROLE_CUSTOMER\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/auth/register",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "auth", "register"]
+						}
+					}
+				},
+				{
+					"name": "1.5 Refresh Access Token (Seamless Session)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refreshToken\": \"{{refreshToken}}\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/auth/refresh",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "auth", "refresh"]
+						}
+					}
+				},
+				{
+					"name": "1.6 Get Current User Profile (Me)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/auth/me",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "auth", "me"]
+						}
+					}
+				},
+				{
+					"name": "1.7 Admin Force Logout / Revoke User Session",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{adminToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/auth/admin/revoke-user/3",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "auth", "admin", "revoke-user", "3"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "02. Catalog & Profile Management (customer-service)",
+			"item": [
+				{
+					"name": "2.1 Admin Create Account Type (Catalog)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{adminToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"typeCode\": \"PLATINUM\",\n    \"typeName\": \"Platinum VIP Account\",\n    \"description\": \"VIP account with dedicated banker\",\n    \"interestRate\": 2.5,\n    \"minimumBalance\": 100000000,\n    \"active\": true\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/account-types",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "account-types"]
+						}
+					}
+				},
+				{
+					"name": "2.2 List All Account Types (Redis Cache-Aside)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/account-types",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "account-types"]
+						}
+					}
+				},
+				{
+					"name": "2.3 Get Account Type by Code",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/account-types/CHECKING",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "account-types", "CHECKING"]
+						}
+					}
+				},
+				{
+					"name": "2.4 Admin Create Customer Profile",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{adminToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"customerCode\": \"CUST-999\",\n    \"fullName\": \"Hoang Thi Lan\",\n    \"idCardNumber\": \"001200009999\",\n    \"phoneNumber\": \"0977889900\",\n    \"email\": \"lan.hoang@gmail.com\",\n    \"address\": \"789 Kim Ma, Ba Dinh, Hanoi\",\n    \"dateOfBirth\": \"1992-10-10\",\n    \"active\": true\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/customers",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "customers"]
+						}
+					}
+				},
+				{
+					"name": "2.5 Get Customer by ID (Redis Cached)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/customers/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "customers", "1"]
+						}
+					}
+				},
+				{
+					"name": "2.6 Admin List Customers",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{adminToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/customers?page=0&size=10",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "customers"],
+							"query": [
+								{ "key": "page", "value": "0" },
+								{ "key": "size", "value": "10" }
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "03. Bank Account Management (account-service)",
+			"item": [
+				{
+					"name": "3.1 Open New Bank Account",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"customerId\": 1,\n    \"accountType\": \"CHECKING\",\n    \"initialDeposit\": 5000000,\n    \"currency\": \"VND\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/accounts",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "accounts"]
+						}
+					}
+				},
+				{
+					"name": "3.2 Get Account Details by Account Number",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/accounts/1000000001",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "accounts", "1000000001"]
+						}
+					}
+				},
+				{
+					"name": "3.3 Get Destination Account Details",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/accounts/1000000002",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "accounts", "1000000002"]
+						}
+					}
+				},
+				{
+					"name": "3.4 List Accounts by Customer ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/accounts/customer/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "accounts", "customer", "1"]
+						}
+					}
+				},
+				{
+					"name": "3.5 Admin Lock Account",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{adminToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status\": \"LOCKED\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/accounts/1000000003/status",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "accounts", "1000000003", "status"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "04. Core Transfer & Saga Transactions (transaction-service)",
+			"item": [
+				{
+					"name": "4.1 SAGA FLOW 1: Transfer Success (1000000001 -> 1000000002)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fromAccountNumber\": \"1000000001\",\n    \"toAccountNumber\": \"1000000002\",\n    \"amount\": 2000000,\n    \"note\": \"Chuyen tien mua hang cong nghe\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/transactions/transfer",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "transactions", "transfer"]
+						}
+					}
+				},
+				{
+					"name": "4.2 SAGA FLOW 2: Transfer to LOCKED Account (Triggers Rollback Compensation)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fromAccountNumber\": \"1000000001\",\n    \"toAccountNumber\": \"1000000003\",\n    \"amount\": 1500000,\n    \"note\": \"Test Saga compensating rollback\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/transactions/transfer",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "transactions", "transfer"]
+						}
+					}
+				},
+				{
+					"name": "4.3 SAGA FLOW 3: Transfer to Non-Existent Account (Triggers Rollback)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fromAccountNumber\": \"1000000001\",\n    \"toAccountNumber\": \"9999999999\",\n    \"amount\": 500000,\n    \"note\": \"Test non existent destination account\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/transactions/transfer",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "transactions", "transfer"]
+						}
+					}
+				},
+				{
+					"name": "4.4 SAGA FLOW 4: Insufficient Balance (Rejected at Step 1)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fromAccountNumber\": \"1000000001\",\n    \"toAccountNumber\": \"1000000002\",\n    \"amount\": 99999999999,\n    \"note\": \"Overdraft test\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/transactions/transfer",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "transactions", "transfer"]
+						}
+					}
+				},
+				{
+					"name": "4.5 Get Account Transaction History",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/transactions/account/1000000001?page=0&size=10",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "transactions", "account", "1000000001"],
+							"query": [
+								{ "key": "page", "value": "0" },
+								{ "key": "size", "value": "10" }
+							]
+						}
+					}
+				},
+				{
+					"name": "4.6 TELLER View Daily Transactions (Own transactions)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tellerToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/transactions/teller/daily?page=0&size=10",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "transactions", "teller", "daily"],
+							"query": [
+								{ "key": "page", "value": "0" },
+								{ "key": "size", "value": "10" }
+							]
+						}
+					}
+				},
+				{
+					"name": "4.7 ADMIN View All Daily Transactions",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{adminToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/transactions/admin/daily?page=0&size=10",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "transactions", "admin", "daily"],
+							"query": [
+								{ "key": "page", "value": "0" },
+								{ "key": "size", "value": "10" }
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "05. Event-Driven Notifications (notification-service)",
+			"item": [
+				{
+					"name": "5.1 Get Recent Kafka Consumed Notifications",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8085/api/v1/notifications/history",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8085",
+							"path": ["api", "v1", "notifications", "history"]
+						}
+					}
+				},
+				{
+					"name": "5.2 Simulate Notification Dispatch",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8085/api/v1/notifications/simulate?account=1000000001&amount=500000",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8085",
+							"path": ["api", "v1", "notifications", "simulate"],
+							"query": [
+								{ "key": "account", "value": "1000000001" },
+								{ "key": "amount", "value": "500000" }
+							]
+						}
+					}
+				}
+			]
+		}
+	]
+}

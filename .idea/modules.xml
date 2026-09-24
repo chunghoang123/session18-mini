@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/NguyenManhHung_Microservice_ss18_miniproject-main.iml" filepath="$PROJECT_DIR$/.idea/NguyenManhHung_Microservice_ss18_miniproject-main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/api-gateway/rikkeibank-microservices.api-gateway.main.iml" filepath="$PROJECT_DIR$/.idea/modules/api-gateway/rikkeibank-microservices.api-gateway.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common-library/rikkeibank-microservices.common-library.main.iml" filepath="$PROJECT_DIR$/.idea/modules/common-library/rikkeibank-microservices.common-library.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/config-server/rikkeibank-microservices.config-server.main.iml" filepath="$PROJECT_DIR$/.idea/modules/config-server/rikkeibank-microservices.config-server.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/customer-service/rikkeibank-microservices.customer-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/customer-service/rikkeibank-microservices.customer-service.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/discovery-server/rikkeibank-microservices.discovery-server.main.iml" filepath="$PROJECT_DIR$/.idea/modules/discovery-server/rikkeibank-microservices.discovery-server.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/identity-service/rikkeibank-microservices.identity-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/identity-service/rikkeibank-microservices.identity-service.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/notification-service/rikkeibank-microservices.notification-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/notification-service/rikkeibank-microservices.notification-service.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/transaction-service/rikkeibank-microservices.transaction-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/transaction-service/rikkeibank-microservices.transaction-service.main.iml" />
+    </modules>
+  </component>
+</project>

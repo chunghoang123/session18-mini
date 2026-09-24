@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Gradle Imported" enabled="true">
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.34/ec547ef414ab1d2c040118fb9c1c265ada63af14/lombok-1.18.34.jar" />
+        </processorPath>
+        <module name="rikkeibank-microservices.customer-service.main" />
+        <module name="rikkeibank-microservices.discovery-server.main" />
+        <module name="rikkeibank-microservices.api-gateway.main" />
+        <module name="rikkeibank-microservices.common-library.main" />
+        <module name="rikkeibank-microservices.config-server.test" />
+        <module name="rikkeibank-microservices.account-service.main" />
+        <module name="rikkeibank-microservices.identity-service.test" />
+        <module name="rikkeibank-microservices.notification-service.test" />
+        <module name="rikkeibank-microservices.transaction-service.main" />
+        <module name="rikkeibank-microservices.transaction-service.test" />
+        <module name="rikkeibank-microservices.api-gateway.test" />
+        <module name="rikkeibank-microservices.notification-service.main" />
+        <module name="rikkeibank-microservices.account-service.test" />
+        <module name="rikkeibank-microservices.identity-service.main" />
+        <module name="rikkeibank-microservices.config-server.main" />
+        <module name="rikkeibank-microservices.discovery-server.test" />
+        <module name="rikkeibank-microservices.common-library.test" />
+        <module name="rikkeibank-microservices.customer-service.test" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="rikkeibank-microservices.account-service" options="-parameters" />
+      <module name="rikkeibank-microservices.account-service.main" options="-parameters" />
+      <module name="rikkeibank-microservices.account-service.test" options="-parameters" />
+      <module name="rikkeibank-microservices.api-gateway" options="-parameters" />
+      <module name="rikkeibank-microservices.api-gateway.main" options="-parameters" />
+      <module name="rikkeibank-microservices.api-gateway.test" options="-parameters" />
+      <module name="rikkeibank-microservices.config-server" options="-parameters" />
+      <module name="rikkeibank-microservices.config-server.main" options="-parameters" />
+      <module name="rikkeibank-microservices.config-server.test" options="-parameters" />
+      <module name="rikkeibank-microservices.customer-service" options="-parameters" />
+      <module name="rikkeibank-microservices.customer-service.main" options="-parameters" />
+      <module name="rikkeibank-microservices.customer-service.test" options="-parameters" />
+      <module name="rikkeibank-microservices.discovery-server" options="-parameters" />
+      <module name="rikkeibank-microservices.discovery-server.main" options="-parameters" />
+      <module name="rikkeibank-microservices.discovery-server.test" options="-parameters" />
+      <module name="rikkeibank-microservices.identity-service" options="-parameters" />
+      <module name="rikkeibank-microservices.identity-service.main" options="-parameters" />
+      <module name="rikkeibank-microservices.identity-service.test" options="-parameters" />
+      <module name="rikkeibank-microservices.notification-service" options="-parameters" />
+      <module name="rikkeibank-microservices.notification-service.main" options="-parameters" />
+      <module name="rikkeibank-microservices.notification-service.test" options="-parameters" />
+      <module name="rikkeibank-microservices.transaction-service" options="-parameters" />
+      <module name="rikkeibank-microservices.transaction-service.main" options="-parameters" />
+      <module name="rikkeibank-microservices.transaction-service.test" options="-parameters" />
+    </option>
+  </component>
+</project>

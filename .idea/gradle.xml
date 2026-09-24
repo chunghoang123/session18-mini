@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/NguyenManhHung_Microservice_ss18_miniproject-main" />
+        <option name="gradleJvm" value="#JAVA_HOME" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/NguyenManhHung_Microservice_ss18_miniproject-main" />
+            <option value="$PROJECT_DIR$/NguyenManhHung_Microservice_ss18_miniproject-main/account-service" />
+            <option value="$PROJECT_DIR$/NguyenManhHung_Microservice_ss18_miniproject-main/api-gateway" />
+            <option value="$PROJECT_DIR$/NguyenManhHung_Microservice_ss18_miniproject-main/common-library" />
+            <option value="$PROJECT_DIR$/NguyenManhHung_Microservice_ss18_miniproject-main/config-server" />
+            <option value="$PROJECT_DIR$/NguyenManhHung_Microservice_ss18_miniproject-main/customer-service" />
+            <option value="$PROJECT_DIR$/NguyenManhHung_Microservice_ss18_miniproject-main/discovery-server" />
+            <option value="$PROJECT_DIR$/NguyenManhHung_Microservice_ss18_miniproject-main/identity-service" />
+            <option value="$PROJECT_DIR$/NguyenManhHung_Microservice_ss18_miniproject-main/notification-service" />
+            <option value="$PROJECT_DIR$/NguyenManhHung_Microservice_ss18_miniproject-main/transaction-service" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/NguyenManhHung_Microservice_ss18_miniproject-main/account-service" />
+        <option name="gradleJvm" value="#JAVA_HOME" />
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/NguyenManhHung_Microservice_ss18_miniproject-main/api-gateway" />
+        <option name="gradleJvm" value="#JAVA_HOME" />
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/NguyenManhHung_Microservice_ss18_miniproject-main/common-library" />
+        <option name="gradleJvm" value="#JAVA_HOME" />
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/NguyenManhHung_Microservice_ss18_miniproject-main/customer-service" />
+        <option name="gradleJvm" value="#JAVA_HOME" />
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/NguyenManhHung_Microservice_ss18_miniproject-main/discovery-server" />
+        <option name="gradleJvm" value="#JAVA_HOME" />
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/NguyenManhHung_Microservice_ss18_miniproject-main/identity-service" />
+        <option name="gradleJvm" value="#JAVA_HOME" />
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/NguyenManhHung_Microservice_ss18_miniproject-main/notification-service" />
+        <option name="gradleJvm" value="#JAVA_HOME" />
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/NguyenManhHung_Microservice_ss18_miniproject-main/transaction-service" />
+        <option name="gradleJvm" value="#JAVA_HOME" />
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>
